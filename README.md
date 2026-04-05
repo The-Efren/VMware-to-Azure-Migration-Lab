@@ -2,7 +2,7 @@
 
 ## Objective
 
-This lab project aimed to establish a hybrid cloud identity environment simulating a real-world enterprise migration from on-premises Active Directory to Microsoft Azure. The primary focus was to deploy and configure Active Directory Domain Services, synchronize identities to Microsoft Entra ID using Entra Connect, and implement cloud security controls including Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA). This hands-on experience was designed to deepen my understanding of hybrid identity architecture, cloud migration methodology, and Azure administration.
+This lab aimed to establish a hybrid cloud identity environment simulating a real-world enterprise migration from on-premises Active Directory to Microsoft Azure. The primary focus was to deploy and configure Active Directory Domain Services and synchronize identities to Microsoft Entra ID using Entra Connect. I also implemented cloud security controls including Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA). This hands-on experience was designed to deepen my understanding of hybrid identity architecture, cloud migration methodology, and Azure administration.
 
 ---
 
