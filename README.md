@@ -1,4 +1,4 @@
-# VMware to Azure Cloud Migration Lab
+# VMware to Azure Migration Lab
 
 ## Objective
 
