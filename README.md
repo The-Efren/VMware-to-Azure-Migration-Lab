@@ -406,7 +406,7 @@ Created a Resource Group (`rg-efrenlab-prod`) as the scope for RBAC assignments.
 
 #### Step 14 — Multi-Factor Authentication via Security Defaults
 
-Enabled MFA across the entire tenant using Entra ID Security Defaults — Microsoft's free baseline security policy. Tested MFA registration end-to-end as Alice Carter using Microsoft Authenticator push notification.
+Enabled MFA across the entire tenant using Entra ID Security Defaults — Microsoft's free baseline security policy. Tested MFA registration end-to-end as Efren Martinez using Microsoft Authenticator push notification.
 
 | Protection | Status |
 |---|---|
@@ -424,14 +424,10 @@ Enabled MFA across the entire tenant using Entra ID Security Defaults — Micros
 | Registration | ✅ Successful |
 | Sign-in with MFA | ✅ Successful |
 
-*Ref 20: Entra ID Security Defaults blade showing toggle Enabled*
-> 📸 Insert screenshot of entra.microsoft.com → Identity → Overview → Properties → Manage Security Defaults showing Enabled
+*Ref 20: Entra ID Security Defaults blade showing toggle Enabled*  
 
-*Ref 21: MFA registration prompt displayed when signing in as alice.carter*
-> 📸 Insert screenshot of the "More information required" MFA registration prompt
+<img width="533" height="430" alt="sec" src="https://github.com/user-attachments/assets/e96cc12d-a3d4-48e6-9b9a-43038999c529" />
 
-*Ref 22: Successful Azure portal login after MFA approval*
-> 📸 Insert screenshot of portal.azure.com dashboard after successful MFA-protected login as alice.carter
 
 ---
 
@@ -450,57 +446,6 @@ Enabled MFA across the entire tenant using Entra ID Security Defaults — Micros
 - Review recommended VM size, readiness status, and estimated monthly cost
 - Document and screenshot assessment results
 
-*Ref 23: Azure Migrate project overview — efrenlab-migration*
-> 📸 Screenshot to be added upon completion
-
-*Ref 24: DC01 assessment results showing Azure readiness and recommended VM size*
-> 📸 Screenshot to be added upon completion
-
----
-
-#### Step 16 — Azure Virtual Network (Planned)
-
-> 🟡 *This phase is currently in progress.*
-
-**Planned Configuration:**
-
-| Property | Value |
-|---|---|
-| VNet Name | vnet-efrenlab-prod |
-| Address Space | 10.0.0.0/16 |
-| Subnet Name | snet-identity |
-| Subnet Range | 10.0.1.0/24 |
-| Region | East US |
-| Resource Group | rg-efrenlab-prod |
-
-*Ref 25: Azure VNet configuration overview*
-> 📸 Screenshot to be added upon completion
-
----
-
-#### Step 17 — Cloud Domain Controller DC02 (Planned)
-
-> 🟡 *This phase is currently in progress.*
-
-**Planned Configuration:**
-
-| Property | Value |
-|---|---|
-| VM Name | DC02 |
-| VM Size | Standard_B2s |
-| OS | Windows Server 2022 |
-| Role | Additional Domain Controller — efrenlab.com |
-| VNet | vnet-efrenlab-prod |
-| Subnet | snet-identity |
-| Static Private IP | 10.0.1.10 |
-| Resource Group | rg-efrenlab-prod |
-
-*Ref 26: DC02 Azure VM overview page*
-> 📸 Screenshot to be added upon completion
-
-*Ref 27: DC02 promoted as Domain Controller — ADUC showing both DC01 and DC02*
-> 📸 Screenshot to be added upon completion
-
 ---
 
 ## Lessons Learned & Troubleshooting
@@ -511,7 +456,7 @@ Enabled MFA across the entire tenant using Entra ID Security Defaults — Micros
 | Entra Connect not on Microsoft Download Center | Microsoft moved releases exclusively to Entra Admin Center | Downloaded from entra.microsoft.com → Microsoft Entra Connect → Get Started → Manage tab |
 | UPN suffix warning in Entra Connect wizard | `efrenlab.com` is not a verified domain in the Entra ID tenant | Checked "Continue without matching all UPN suffixes to verified domains" — expected for unowned domains |
 | PingSucceeded: False on connectivity test | Microsoft blocks ICMP ping on all their endpoints by design | Confirmed `TcpTestSucceeded: True` on port 443 — HTTPS connectivity confirmed, ping result is irrelevant |
-| Tenant primary domain too long for practical use | Original tenant was created with a Gmail-derived name | Attempted to create new workforce tenant — feature moved in Azure Portal. Proceeded with existing tenant |
+| Tenant primary domain too long for practical use | Original tenant was created with a Gmail-derived name | Attempted to create new workforce tenant, feature moved in Azure Portal. Proceeded with existing tenant |
 
 ---
 
@@ -519,14 +464,21 @@ Enabled MFA across the entire tenant using Entra ID Security Defaults — Micros
 
 | Decision | Rationale |
 |---|---|
-| Custom install over Express in Entra Connect | Express syncs all OUs with no filtering — Custom allows OU exclusions and full configuration visibility |
-| Password Hash Sync over Pass-through Authentication | PHS is simpler, more resilient, widely deployed, and doesn't require on-prem infrastructure for auth |
+| Custom install over Express in Entra Connect | Express syncs all OUs with no filtering while Custom allows OU exclusions and full configuration visibility |
+| Password Hash Sync over Pass-through Authentication | PHS is simpler, more resilient, widely deployed, and doesn't require on-prem infrastructure for authentication |
 | Let Azure manage source anchor | Modern recommended approach using mS-DS-ConsistencyGuid for stable, portable cloud identity linking |
-| Excluded _ServiceAccounts OU from sync | Service accounts should never exist as cloud identities — security best practice and least privilege |
+| Excluded _ServiceAccounts OU from sync | Service accounts should never exist as cloud identities. Security best practice and least privilege |
 | Security Defaults over per-user MFA | Enforces consistent MFA baseline across all users without requiring Entra ID P1 licensing |
-| Separate cloudadmin account for Azure administration | Isolates billing credentials from admin operations — mirrors enterprise security practices |
-| Static IP on DC01 (192.168.10.10) | Domain Controllers require predictable addresses for DNS, Kerberos auth, and AD replication stability |
+| Separate cloudadmin account for Azure administration | Isolates billing credentials from admin operations and mirrors enterprise security practices |
+| Static IP on DC01 (192.168.x.x) | Domain Controllers require predictable addresses for DNS, Kerberos auth, and AD replication stability |
 
 ---
 
-*This project is part of a cloud engineering portfolio demonstrating hybrid identity, Azure administration, and cloud migration skills. Built using VMware Workstation Pro and Microsoft Azure free trial.*
+## 👋 About Me
+
+I'm currently a Helpdesk Engineer transitioning into Azure Cloud Engineering, any feedback would be greatly appreciated!
+
+Feel free to connect with me:
+
+- LinkedIn: https://www.linkedin.com/in/efren-martinez-it/
+- GitHub: https://github.com/The-Efren
