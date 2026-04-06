@@ -64,8 +64,10 @@ Created a new Virtual Machine in VMware Workstation Pro configured with 2 vCPUs,
 | NIC 1 | NAT — Internet access |
 | NIC 2 | Host-Only — Internal domain network |
 
-*Ref 1: VMware VM settings showing dual NIC configuration (NAT + Host-Only)*
-> 📸 Insert screenshot of VMware VM settings → Network Adapter configuration here
+*Ref 1: VMware VM settings showing dual NIC configuration (NAT + Host-Only)*  
+
+<img width="888" height="467" alt="vmware net settings " src="https://github.com/user-attachments/assets/b63ab720-b899-4b7a-ae9f-560590db7538" />
+
 
 ---
 
@@ -79,14 +81,16 @@ Configured a static IP address on the Host-Only NIC (Ethernet1) to ensure the Do
 | Ethernet1 | 192.168.10.10 | Static | Host-Only — Internal domain |
 | Loopback | 127.0.0.1 | Static | Self DNS reference |
 
-*Ref 2: PowerShell output confirming dual NIC configuration with static IP on Ethernet1*
-> 📸 Insert screenshot of PowerShell output: `Get-NetIPAddress -AddressFamily IPv4 | Select-Object InterfaceAlias, IPAddress`
+*Ref 2: PowerShell output confirming dual NIC configuration with static IP on Ethernet1*  
+
+<img width="965" height="157" alt="IPs" src="https://github.com/user-attachments/assets/2a1ce175-8bdf-4d6b-8242-696e0f17f351" />
+
 
 ---
 
 #### Step 3 — AD DS Role Installation & Domain Controller Promotion
 
-Installed the Active Directory Domain Services and DNS Server roles via Server Manager. Promoted DC01 to a Domain Controller by creating a new forest with the root domain `efrenlab.com`. Forest and domain functional levels were set to Windows Server 2016 — a requirement for Microsoft Entra Connect compatibility.
+Installed the Active Directory Domain Services and DNS Server roles via Server Manager. Promoted DC01 to a Domain Controller by creating a new forest with the root domain `efrenlab.com`. Forest and domain functional levels were set to Windows Server 2016(a requirement for Microsoft Entra Connect compatibility).
 
 | Property | Value |
 |---|---|
@@ -98,8 +102,10 @@ Installed the Active Directory Domain Services and DNS Server roles via Server M
 | DC Roles | Primary Domain Controller, DNS Server |
 | DNS Self Reference | 127.0.0.1 |
 
-*Ref 3: Active Directory Users and Computers showing efrenlab.com domain after promotion*
-> 📸 Insert screenshot of ADUC (dsa.msc) showing efrenlab.com in the left panel
+*Ref 3: Active Directory Users and Computers showing efrenlab.com domain after promotion*  
+
+<img width="555" height="212" alt="aduc" src="https://github.com/user-attachments/assets/9b0cf070-90a1-4125-a4de-d4c3194d5495" />
+
 
 ---
 
@@ -132,8 +138,10 @@ New-ADOrganizationalUnit -Name "HR"      -Path $employeesOU -ProtectedFromAccide
 New-ADOrganizationalUnit -Name "Finance" -Path $employeesOU -ProtectedFromAccidentalDeletion $true
 ```
 
-*Ref 4: ADUC showing full OU hierarchy expanded under efrenlab.com*
-> 📸 Insert screenshot of ADUC with the full OU tree expanded showing _Computers, _Employees (with IT, HR, Finance), and _ServiceAccounts
+*Ref 4: ADUC showing full OU hierarchy expanded under efrenlab.com*  
+
+<img width="553" height="457" alt="OUs" src="https://github.com/user-attachments/assets/7412a8cc-9f3a-4502-a16e-00e84292ef27" />
+
 
 ---
 
@@ -145,27 +153,32 @@ Created 7 realistic test users across the three department OUs using PowerShell.
 
 | Property | Format | Example |
 |---|---|---|
-| SAMAccountName | firstname.lastname | alice.carter |
-| UPN | firstname.lastname@efrenlab.com | alice.carter@efrenlab.com |
-| Display Name | Firstname Lastname | Alice Carter |
+| SAMAccountName | FirstinitialLastname | emartinez |
+| UPN | firstname.lastname@efrenlab.com | emartinez@efrenlab.com |
+| Display Name | Firstname Lastname | Efren Martinez |
 
 **Users Created:**
 
 | Display Name | Username | Department | Title | OU |
 |---|---|---|---|---|
-| Alice Carter | alice.carter | IT | IT Manager | IT |
-| Bob Stevens | bob.stevens | IT | Systems Administrator | IT |
-| Carol Dean | carol.dean | IT | Help Desk Technician | IT |
-| David Mills | david.mills | HR | HR Manager | HR |
-| Emma Clarke | emma.clarke | HR | HR Coordinator | HR |
-| Frank Nguyen | frank.nguyen | Finance | Finance Manager | Finance |
-| Grace Lee | grace.lee | Finance | Financial Analyst | Finance |
+| Efren Martinez | emartinez | IT | IT Manager | IT |
+| Bob Stevens | bstevens | IT | Systems Administrator | IT |
+| Carol Dean | cdean | IT | Help Desk Technician | IT |
+| David Mills | dmills | HR | HR Manager | HR |
+| Emma Clarke | eclarke | HR | HR Coordinator | HR |
+| Frank Nguyen | fnguyen | Finance | Finance Manager | Finance |
+| Grace Lee | glee | Finance | Financial Analyst | Finance |
 
-*Ref 5: ADUC showing users listed under each department OU*
-> 📸 Insert screenshot of ADUC showing IT, HR, and Finance OUs with users visible inside each
+*Ref 5: ADUC showing users listed under each department OU*  
 
-*Ref 6: PowerShell verification of all 7 users with Department and Title*
-> 📸 Insert screenshot of PowerShell output: `Get-ADUser -Filter * -Properties Department, Title | Select-Object Name, SamAccountName, Department, Title | Sort-Object Department`
+<img width="1066" height="302" alt="users1" src="https://github.com/user-attachments/assets/336826f2-591c-4a3a-9615-a8eda971a853" />
+<img width="1051" height="302" alt="users2" src="https://github.com/user-attachments/assets/782886ea-0b86-4d8d-83e1-190c1c383be3" />
+<img width="1093" height="297" alt="users3" src="https://github.com/user-attachments/assets/333f449d-0def-445a-9c69-95d1247eac26" />  
+
+*Ref 6: PowerShell verification of all 7 users with Department and Title*  
+
+<img width="641" height="291" alt="ps users" src="https://github.com/user-attachments/assets/b11ffbd1-e7df-4f78-9152-0a77dc1056fb" />
+
 
 ---
 
@@ -188,11 +201,15 @@ Created a dedicated service account `svc_entrasync` in the `_ServiceAccounts` OU
 - Replicating Directory Changes (`1131f6aa-9c07-11d1-f79f-00c04fc2dcd2`)
 - Replicating Directory Changes All (`1131f6ab-9c07-11d1-f79f-00c04fc2dcd2`)
 
-*Ref 7: PowerShell output verifying svc_entrasync properties*
-> 📸 Insert screenshot of PowerShell output: `Get-ADUser -Identity "svc_entrasync" -Properties * | Select-Object Name, SamAccountName, UserPrincipalName, PasswordNeverExpires, Enabled`
+*Ref 7: PowerShell output verifying svc_entrasync properties*  
 
-*Ref 8: PowerShell output confirming Domain Users only group membership*
-> 📸 Insert screenshot of PowerShell output: `Get-ADPrincipalGroupMembership "svc_entrasync" | Select-Object Name`
+<img width="1487" height="217" alt="ps serv" src="https://github.com/user-attachments/assets/cb8ff4f6-6267-4566-8497-1f3068213680" />
+
+
+*Ref 8: PowerShell output confirming Domain Users only group membership*  
+
+<img width="857" height="111" alt="ps serv2" src="https://github.com/user-attachments/assets/ee80913e-0c74-439d-bd7d-5f3bc7595edc" />
+
 
 ---
 
@@ -212,8 +229,10 @@ Enable-ADOptionalFeature "Recycle Bin Feature" `
   -Confirm:$false
 ```
 
-*Ref 9: PowerShell output confirming DNS forwarders configured*
-> 📸 Insert screenshot of PowerShell output: `Get-DnsServerForwarder`
+*Ref 9: PowerShell output confirming DNS forwarders configured*  
+
+<img width="448" height="175" alt="forward" src="https://github.com/user-attachments/assets/579c827d-cf78-4823-ae02-c37fa78d16b4" />
+
 
 ---
 
@@ -227,28 +246,32 @@ Located the Microsoft Entra ID tenant associated with the Azure free trial. Crea
 
 | Property | Value |
 |---|---|
-| Primary Domain | efrenmartineztechgmail.onmicrosoft.com |
+| Primary Domain | <TENANT_DOMAIN> |
 | Tenant ID | [Your Tenant ID] |
 | Subscription Type | Azure Free Trial |
-| Global Admin Account | cloudadmin@efrenmartineztechgmail.onmicrosoft.com |
+| Global Admin Account | <ADMIN_ACCOUNT> |
 
 **UPN Mapping — On-Premises to Cloud:**
 
 | On-Premises UPN | Cloud UPN |
 |---|---|
-| alice.carter@efrenlab.com | alice.carter@efrenmartineztechgmail.onmicrosoft.com |
-| bob.stevens@efrenlab.com | bob.stevens@efrenmartineztechgmail.onmicrosoft.com |
-| carol.dean@efrenlab.com | carol.dean@efrenmartineztechgmail.onmicrosoft.com |
-| david.mills@efrenlab.com | david.mills@efrenmartineztechgmail.onmicrosoft.com |
-| emma.clarke@efrenlab.com | emma.clarke@efrenmartineztechgmail.onmicrosoft.com |
-| frank.nguyen@efrenlab.com | frank.nguyen@efrenmartineztechgmail.onmicrosoft.com |
-| grace.lee@efrenlab.com | grace.lee@efrenmartineztechgmail.onmicrosoft.com |
+| emartinez@efrenlab.com | emartinez@<TENANT_DOMAIN> |
+| bstevens@efrenlab.com | bstevens@<TENANT_DOMAIN> |
+| cdean@efrenlab.com | cdean@<TENANT_DOMAIN> |
+| dmills@efrenlab.com | dmills@<TENANT_DOMAIN> |
+| eclarke@efrenlab.com | eclarke@<TENANT_DOMAIN> |
+| fnguyen@efrenlab.com | fnguyen@<TENANT_DOMAIN> |
+| glee@efrenlab.com | glee@<TENANT_DOMAIN> |
 
-*Ref 10: Microsoft Entra ID Overview page showing tenant domain and Tenant ID*
-> 📸 Insert screenshot of entra.microsoft.com → Overview page showing primary domain and Tenant ID
+*Ref 10: Microsoft Entra ID Overview page showing tenant domain and Tenant ID*  
 
-*Ref 11: Entra ID Users page showing cloudadmin with Global Administrator role assigned*
-> 📸 Insert screenshot of cloudadmin user properties showing Global Administrator role
+<img width="1627" height="638" alt="entra" src="https://github.com/user-attachments/assets/b9b1b7ee-bf79-4d58-acc0-c3e538d5def5" />
+
+
+*Ref 11: Entra ID Users page showing cloudadmin with Global Administrator role assigned*  
+
+<img width="2547" height="415" alt="cloudadmin" src="https://github.com/user-attachments/assets/c3ae3e85-ed6c-4df0-8ce2-eee0824128cb" />
+
 
 ---
 
@@ -270,8 +293,10 @@ Before installing Entra Connect, verified DC01 met all technical requirements in
 
 > **Note:** PingSucceeded showed False for both Microsoft endpoints — this is expected as Microsoft blocks ICMP ping by design. TcpTestSucceeded: True on port 443 confirms HTTPS connectivity.
 
-*Ref 12: PowerShell prerequisites check output*
-> 📸 Insert screenshot of PowerShell output from the prerequisites check commands
+*Ref 12: PowerShell prerequisites check output*  
+
+<img width="317" height="266" alt="ps version" src="https://github.com/user-attachments/assets/f9d49ca3-b7f4-43b3-be48-6ecb02d75dda" />
+
 
 ---
 
@@ -281,11 +306,15 @@ Downloaded Microsoft Entra Connect Sync from the Microsoft Entra Admin Center. N
 
 Installed using the **Custom** path (not Express) to maintain full control over OU filtering, sync scope, and configuration decisions.
 
-*Ref 13: Entra Connect installer — Install Required Components screen*
-> 📸 Insert screenshot of the "Install required components" screen with all options unchecked
+*Ref 13: Entra Connect installer — Install Required Components screen*  
 
-*Ref 14: Entra Connect — User Sign-In screen showing Password Hash Sync selected*
-> 📸 Insert screenshot of User Sign-In screen with Password Hash Synchronization selected
+<img width="887" height="630" alt="install" src="https://github.com/user-attachments/assets/884f63d8-fc80-4675-a558-204f341e151e" />
+
+
+
+*Ref 14: Entra Connect — User Sign-In screen showing Password Hash Sync selected*  
+
+<img width="890" height="627" alt="sign in" src="https://github.com/user-attachments/assets/036e2d0d-2d8a-48cf-af3c-756efcef0df7" />
 
 ---
 
@@ -303,8 +332,10 @@ Configured OU-level filtering to control exactly which objects sync to Entra ID.
 | Domain Controllers | ❌ Excluded | DC objects never synced |
 | All other default containers | ❌ Excluded | Not required for this migration |
 
-*Ref 15: Entra Connect Domain and OU Filtering screen showing selected OUs*
-> 📸 Insert screenshot of the OU filtering screen showing _Employees checked and _ServiceAccounts unchecked
+*Ref 15: Entra Connect Domain and OU Filtering screen showing selected OUs*  
+
+<img width="890" height="626" alt="ou filter" src="https://github.com/user-attachments/assets/2678f40b-c639-4be6-8efb-96976f6b7a28" />
+
 
 ---
 
@@ -322,7 +353,7 @@ Get-ADSyncScheduler | Select-Object SyncCycleEnabled, NextSyncCyclePolicyType
 
 | Display Name | Source | Status |
 |---|---|---|
-| Alice Carter | Windows Server AD | ✅ Synced |
+| Efren Martinez | Windows Server AD | ✅ Synced |
 | Bob Stevens | Windows Server AD | ✅ Synced |
 | Carol Dean | Windows Server AD | ✅ Synced |
 | David Mills | Windows Server AD | ✅ Synced |
@@ -331,11 +362,15 @@ Get-ADSyncScheduler | Select-Object SyncCycleEnabled, NextSyncCyclePolicyType
 | Grace Lee | Windows Server AD | ✅ Synced |
 | svc_entrasync | N/A | ❌ Correctly excluded |
 
-*Ref 16: Entra Connect "Configuration complete" screen*
-> 📸 Insert screenshot of the "Configuration complete" success screen
+*Ref 16: Entra Connect "Configuration complete" screen*  
 
-*Ref 17: Entra ID Users page showing all 7 synced users with Source = Windows Server AD*
-> 📸 Insert screenshot of entra.microsoft.com → Users → All Users showing synced users with Source column
+<img width="888" height="628" alt="config complete " src="https://github.com/user-attachments/assets/57a72712-791b-407a-bb37-8869b606ea83" />
+
+
+*Ref 17: Entra ID Users page showing all 7 synced users with Source = Windows Server AD*  
+
+<img width="1392" height="877" alt="azure users" src="https://github.com/user-attachments/assets/c5ab9202-259e-40cd-ac19-8783b38016d6" />
+
 
 ---
 
@@ -349,7 +384,7 @@ Created a Resource Group (`rg-efrenlab-prod`) as the scope for RBAC assignments.
 
 | User | Role | Scope |
 |---|---|---|
-| Alice Carter | Contributor | rg-efrenlab-prod |
+| Efren Martinez | Contributor | rg-efrenlab-prod |
 | Bob Stevens | Contributor | rg-efrenlab-prod |
 | Carol Dean | Reader | rg-efrenlab-prod |
 | David Mills | Reader | rg-efrenlab-prod |
@@ -357,11 +392,15 @@ Created a Resource Group (`rg-efrenlab-prod`) as the scope for RBAC assignments.
 | Frank Nguyen | Reader | rg-efrenlab-prod |
 | Grace Lee | Reader | rg-efrenlab-prod |
 
-*Ref 18: Azure Portal — rg-efrenlab-prod resource group overview*
-> 📸 Insert screenshot of rg-efrenlab-prod overview page in portal.azure.com
+*Ref 18: Azure Portal — rg-efrenlab-prod resource group overview*  
 
-*Ref 19: Access Control (IAM) → Role assignments showing all 7 users with their roles*
-> 📸 Insert screenshot of rg-efrenlab-prod → Access Control (IAM) → Role assignments tab
+<img width="2511" height="320" alt="rg" src="https://github.com/user-attachments/assets/45a12952-4c8d-4e87-861a-1e8f3f134128" />
+
+
+*Ref 19: Access Control (IAM) → Role assignments showing all 7 users with their roles*  
+
+<img width="1475" height="603" alt="IAM" src="https://github.com/user-attachments/assets/17d97252-d1a7-425a-911a-3051897905a8" />
+
 
 ---
 
@@ -380,7 +419,7 @@ Enabled MFA across the entire tenant using Entra ID Security Defaults — Micros
 
 | Property | Value |
 |---|---|
-| Test Account | alice.carter@efrenmartineztechgmail.onmicrosoft.com |
+| Test Account | emartinez@<TENANT_DOMAIN> |
 | MFA Method | Microsoft Authenticator — Push Notification |
 | Registration | ✅ Successful |
 | Sign-in with MFA | ✅ Successful |
