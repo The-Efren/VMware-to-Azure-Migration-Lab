@@ -2,7 +2,15 @@
 
 ## Objective
 
-This lab aimed to establish a hybrid cloud identity environment simulating a real-world enterprise migration from on-premises Active Directory to Microsoft Azure. The primary focus was to deploy and configure Active Directory Domain Services and synchronize identities to Microsoft Entra ID using Entra Connect. I also implemented cloud security controls including Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA). This hands-on experience was designed to deepen my understanding of hybrid identity architecture, cloud migration methodology, and Azure administration.
+This lab aimed to establish a hybrid cloud identity environment simulating a real-world enterprise migration from on-premises Active Directory to Microsoft Azure. The primary focus was to deploy and configure Active Directory Domain Services and synchronize identities to Microsoft Entra ID using Entra Connect. I also implemented cloud security controls including Role-Based Access Control (RBAC) and Multi-Factor Authentication (MFA). This hands-on experience was designed to deepen my understanding of hybrid identity architecture, cloud migration methodology, and Azure administration.  
+
+## 🔄 Migration Flow (Step-by-Step)
+
+1. Azure Migrate appliance deployed in on-prem environment
+2. VMs discovered and assessed for Azure readiness
+3. Replication configured to Azure
+4. Test migration performed (no downtime)
+5. Final migration executed (cutover)
 
 <img width="1532" height="1245" alt="azure-migration-diagram drawio" src="https://github.com/user-attachments/assets/65ff93fa-3623-4f8f-9b45-e85a6a37a259" />
 
