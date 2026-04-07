@@ -6,6 +6,8 @@ This lab aimed to establish a hybrid cloud identity environment simulating a rea
 
 ## 🔄 Migration Flow (Step-by-Step)
 
+The following steps outline how workloads are discovered, assessed, replicated, and migrated from on-premises VMware to Azure using Azure Migrate:
+
 1. Azure Migrate appliance deployed in on-prem environment
 2. VMs discovered and assessed for Azure readiness
 3. Replication configured to Azure
